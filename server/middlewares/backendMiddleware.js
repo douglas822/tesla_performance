@@ -5,7 +5,7 @@ const apiRoutes = require('../api/routes');
 
 module.exports = (app, cb) => {
   mongoose.Promise = global.Promise;
-  mongoose.connect("mongodb://localhost:27017/tesla", (error) => {
+  mongoose.connect("ds157325.mlab.com:57325/tesla_db -u Afterhours -p GWQ4]HNdhMQQue4yc", (error) => {
     if (error) {
       console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
       throw error;
