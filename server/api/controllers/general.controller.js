@@ -1,9 +1,7 @@
-const request = require('request');
 const rp = require('request-promise');
 
-
 function getToken(req, res) {
-  var options = {
+  const options = {
     method: 'POST',
     uri: 'https://owner-api.teslamotors.com/oauth/token',
     body: req.body,
@@ -12,14 +10,11 @@ function getToken(req, res) {
 
   rp(options)
       .then(function (parsedBody) {
-          //console.log(parsedBody);
           res.json(parsedBody);
       })
       .catch(function (err) {
-          console.log("I am a getToken error ", err);
-          res.status(500).json({ message: 'Unauthorized Client!'});
+          res.status(500).json({ message: 'Unauthorized Client!' });
   });
-
 }
 
 function vehicleList(req, res) {
@@ -33,17 +28,13 @@ function vehicleList(req, res) {
 
   rp(options)
       .then(function (parsedBody) {
-          //console.log(parsedBody);
           res.json(parsedBody);
       })
       .catch(function (err) {
-          res.status(500).json({ message: 'Something went wrong when bring vehicle list'});
+          res.status(500).json({ message: 'Something went wrong when bring vehicle list' });
   });
 
   }
-
-
-
 module.exports = {
   getToken,
   vehicleList,
