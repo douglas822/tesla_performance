@@ -43,17 +43,14 @@ function checkStatus(response) {
  * @return {object}           The response data
  */
 export default function request(url, method = 'GET', body = null, includeToken = false, isAPI = true) { // eslint-disable-line
-  console.log("This is request!");
+  console.log( "This is request!", url );
   let requestUrl = url;
   const options = {
     method: method,
   };
   const headers = { 'content-type': 'application/json' };
-
-
   const store = getStore();
   store.dispatch(setAPILoading(true));
-  console.log(includeToken);
   if (isAPI) {
     requestUrl = `/api/${url}`;
   } else {
@@ -66,17 +63,9 @@ export default function request(url, method = 'GET', body = null, includeToken =
   if (includeToken) {
     const currentUser = store.getState().getIn(['user', 'user', 'token']);
     const token = currentUser && currentUser.get('access_token');
-    console.log(token);
-    // const exp = currentUser ? moment(currentUser.get('exp'), 'X') : moment().subtract(1, 'day');
-    // if (moment().diff(exp) > 0) {
-    //   store.dispatch(setGlobalNotification('API Error', 'Token is expired'));
-    //   //store.dispatch(logout());
-    //   return Promise.reject(new Error('Token is expired'));
-    // }
     headers.Authorization = `Bearer ${token}`;
-    console.log("Headers ", headers.Authorization);
   }
-  console.log(requestUrl);
+
   return fetch(requestUrl, {
     ...options,
     headers,
@@ -84,9 +73,8 @@ export default function request(url, method = 'GET', body = null, includeToken =
   .then(checkStatus)
   .then(parseJSON)
   .then((resp) => {
-    console.log("This is response from the node.js ", resp);
-    console.log("Type of response ", typeof(resp));
     store.dispatch(setAPILoading(false));
+    console.log(requestUrl, " has been done!");
     return resp;
   })
   .catch((err) => {

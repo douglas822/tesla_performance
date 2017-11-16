@@ -6,22 +6,9 @@ import { getListSuccess,  getStateSuccess } from './actions';
 export function* carListRequest(action) {
   try {
     console.log("Yeah!!! car list Request");
-
     const listData = JSON.parse( yield call(request, 'vehicleList', 'GET', null , true));
     console.log("this is car list", listData);
-    yield put(getListSuccess(listData.response[0]));
-    const vin = listData.response[0]['vin'];
-
-    const returnedState = JSON.parse(yield call(request, 'storecar', 'POST', listData.response[0] , true, false ));
-    console.log("This is state of the car", returnedState);
-    yield put(getStateSuccess(returnedState.response));
-
-    const sendState = Object.assign( {}, returnedState.response,{ vin: vin} )
-    console.log('This is data to send with vin', sendState);
-    //save database
-    const stateData = yield call(request, `storestate`, 'POST', sendState , true, false );
-
-
+    yield put(getListSuccess(listData.response));
   } catch (err) {
     console.log(err);
     // yield put(loginError(err));
@@ -30,14 +17,18 @@ export function* carListRequest(action) {
 
 export function* carStateRequest(action) {
   try {
-    const { vehicle_id } = action;
-     const data = yield call(request, `api/1/vehicles/${vehicle_id}/data_request/vehicle_state`, 'GET', null , true);
-    console.log(data);
-    //yield put(getStateSuccess(data));
-    //yield put(push('/showcarstate'));
+    console.log(action.car);
+    const returnedState = JSON.parse(yield call(request, 'storecar', 'POST', action.car , true, false ));
+    console.log("This is state of the car", returnedState);
+    yield put(getStateSuccess(returnedState.response));
+    console.log(typeof(action.car.vin));
+    const sendState = Object.assign( {}, returnedState.response,{ vin: action.car.vin} )
+    console.log('This is data to send with vin', sendState);
+    //save database
+    const stateData = yield call(request, `storestate`, 'POST', sendState , true, false );
+    console.log("StoreState call is done");
   } catch (err) {
     console.log(err);
-    // yield put(loginError(err));
   }
 }
 

@@ -5,7 +5,7 @@ const apiRoutes = require('../api/routes');
 
 module.exports = (app, cb) => {
   mongoose.Promise = global.Promise;
-  mongoose.connect("ds157325.mlab.com:57325/tesla_db -u Afterhours -p GWQ4]HNdhMQQue4yc", (error) => {
+  mongoose.connect("mongodb://Afterhours:GWQ4]HNdhMQQue4yc@ds157325.mlab.com:57325/tesla_db", (error) => {
     if (error) {
       console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
       throw error;
@@ -21,3 +21,5 @@ module.exports = (app, cb) => {
   app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
   app.use('/api', apiRoutes);
 };
+
+//////

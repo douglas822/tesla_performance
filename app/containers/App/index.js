@@ -17,6 +17,7 @@ import Header from 'components/Header';
 import Contact from 'containers/Contact/Contact';
 import LoginPage from 'containers/login/index';
 import ShowCarState from 'containers/ShowCarState/index';
+import ShowState from 'containers/ShowCarState/ShowState';
 import FAQPage from 'containers/FAQPage/FAQPage';
 import { createStructuredSelector } from 'reselect';
 import reducer from 'containers/redux/reducers';
@@ -48,9 +49,10 @@ class App extends Component  {
         <Notification />
         <Switch>
           <Route exact path="/" component={LoginPage} />
-          <Route path="/faq" component={FAQPage} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/showcarstate" component={ShowCarState} />
+          <Route exact path="/faq" component={FAQPage} />
+          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/showcarstate" component={ShowCarState} />
+          <Route exact path="/showcarstate/:id" component={ShowState} />
           {/* <Route exact path="/showcarstate" component={ShowCarState} /> */}
           <Route path="" component={NotFoundPage} />
         </Switch>

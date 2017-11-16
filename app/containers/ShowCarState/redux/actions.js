@@ -14,10 +14,10 @@ export function getListSuccess(data) {
   };
 }
 
-export function carStateRequest(vehicle_id) {
+export function carStateRequest(car) {
   return {
     type: CONSTANTS.CAR_STATE_REQUEST,
-    vehicle_id,
+    car,
   };
 }
 

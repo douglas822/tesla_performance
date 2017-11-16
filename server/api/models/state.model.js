@@ -20,18 +20,3 @@ const stateSchema = new Schema({
 });
 
 module.exports = mongoose.model('State', stateSchema);
-//
-// "autopark_state": "unavailable",
-// "autopark_state_v2": "ready",
-// "autopark_style": "dead_man",
-// "car_type": "models2",
-// "car_version": "2017.42 a88c8d5",
-// "dark_rims": false,
-// "exterior_color": "Pearl",
-// "odometer": 3822.434324,
-// "perf_config": "P3",
-// "rear_seat_type": 0,
-// "roof_color": "Glass",
-// "seat_type": 2,
-// "vehicle_name": "Lord Vader",
-// "wheel_type": "AeroTurbine19"

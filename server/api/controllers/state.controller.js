@@ -1,6 +1,7 @@
 const State = require('../models/state.model');
 
 function create(req, res, next) {
+  console.log("This is state's body", req.body);
   const state = new State({
     autopark_state: req.body.autopark_state,
     autopark_state_v2: req.body.autopark_state_v2,
@@ -16,14 +17,18 @@ function create(req, res, next) {
     seat_type:  req.body.seat_type,
     vehicle_name: req.body.vehicle_name,
     wheel_type: req.body.wheel_type,
-    vin: req.body.vin,
-
+    vin: req.body.vin
   });
+  console.log("This is the create state", state, typeof(state));
   state.save()
   .then((newState) => {
+    console.log("state is success");
     res.json(newState);
   })
-  .catch(next);
+  .catch((err) => {
+    console.log("This is store car error ", err);
+    res.status(500).json({message: "Something went to wrong when saving vehicle state to the database"});
+  });
 }
 
 function list(req, res, next) {
