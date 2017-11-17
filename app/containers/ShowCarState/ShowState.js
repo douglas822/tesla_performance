@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
-import { Header, Image, Table, Loader} from 'semantic-ui-react';
+import { Container, Header, Image, Table, Loader} from 'semantic-ui-react';
 import { makeSelectLoading } from 'containers/App/selectors';
 import { carListRequest, carStateRequest } from './redux/actions';
 import {
@@ -14,6 +14,7 @@ import {
   makeSelectStateLoading,
   makeSelectUserToken
 } from './redux/selectors';
+import './style.scss';
 
 class ShowState extends Component {
 
@@ -45,15 +46,23 @@ class ShowState extends Component {
     );
   }
   renderP1 = () => {
+    const divStyle = {
+      margin: '40px',
+      border: '5px solid pink',
+      wordWrap: 'break-word'
+    };
+    const conStyle = {
+      overflowX: 'scroll'
+    }
     const { carList, listLoading, carState, stateLoading, userToken } = this.props;
     return (
 
-        <div>
+        <Container style={conStyle}>
           <Image src='/if_toggle_active.png' centered />
           <Header size='medium' textAlign="center">
             Congratulations! Your car appears to be "Uncorked"!
           </Header>
-          <Table celled celled selectable fixed singleLine selectable>
+          <Table celled padded fixed >
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>State</Table.HeaderCell>
@@ -61,7 +70,7 @@ class ShowState extends Component {
               </Table.Row>
             </Table.Header>
 
-            <Table.Body>
+            <Table.Body >
               <Table.Row>
                 <Table.Cell>per_config</Table.Cell>
                 <Table.Cell>{carState.get('perf_config')}</Table.Cell>
@@ -72,7 +81,7 @@ class ShowState extends Component {
               </Table.Row>
               <Table.Row>
                 <Table.Cell>vehicle_name</Table.Cell>
-                <Table.Cell>{carState.get('car_version')}</Table.Cell>
+                <Table.Cell>{carState.get('vehicle_name')}</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>access_token</Table.Cell>
@@ -80,11 +89,12 @@ class ShowState extends Component {
               </Table.Row>
               <Table.Row>
                 <Table.Cell>option_codes</Table.Cell>
-                <Table.Cell>{carList.toJS()[this.props.match.params.id].option_codes}</Table.Cell>
+                <Table.Cell className="fit">{carList.toJS()[this.props.match.params.id].option_codes}</Table.Cell>
               </Table.Row>
             </Table.Body>
           </Table>
-        </div>
+          <Link to="/showcarstate">Back to My Cars</Link>
+        </Container>
     );
   }
 
@@ -96,7 +106,7 @@ class ShowState extends Component {
         <Header size="medium" textAlign="center">
           Sorry. Your car appears to be “corked”.
         </Header>
-        <Table celled selectable fixed singleLine >
+        <Table celled selectable fixed>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>State</Table.HeaderCell>
@@ -114,7 +124,7 @@ class ShowState extends Component {
             </Table.Row>
             <Table.Row>
               <Table.Cell>vehicle_name</Table.Cell>
-              <Table.Cell>{carState.get('car_version')}</Table.Cell>
+              <Table.Cell>{carState.get('vehicle_name')}</Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell>access_token</Table.Cell>
