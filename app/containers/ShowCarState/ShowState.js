@@ -85,7 +85,7 @@ class ShowState extends Component {
               </Table.Row>
               <Table.Row>
                 <Table.Cell>access_token</Table.Cell>
-                <Table.Cell>{userToken.get('access_token')}</Table.Cell>
+                <Table.Cell className="fit">{userToken.get('access_token')}</Table.Cell>
               </Table.Row>
               <Table.Row>
                 <Table.Cell>option_codes</Table.Cell>
@@ -132,7 +132,7 @@ class ShowState extends Component {
             </Table.Row>
             <Table.Row>
               <Table.Cell>option_codes</Table.Cell>
-              <Table.Cell>{carList.toJS()[this.props.match.params.id].option_codes}</Table.Cell>
+              <Table.Cell className="fit">{carList.toJS()[this.props.match.params.id].option_codes}</Table.Cell>
             </Table.Row>
           </Table.Body>
         </Table>
